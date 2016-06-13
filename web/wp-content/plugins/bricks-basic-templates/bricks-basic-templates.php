@@ -109,6 +109,8 @@ function display_basic_template( $part, $layout ) {
 
     $template = plugin_dir_path( __FILE__ ) . "/parts/row-$layout.php";
 
+    // Get template part
+
     if ( is_file($template) ) {
 
         ob_start();
@@ -117,6 +119,39 @@ function display_basic_template( $part, $layout ) {
         ob_end_clean();
 
     }
+
+    // Css
+
+    $css_file_path = plugin_dir_path( __FILE__ ) . "css/$layout.min.css";
+
+    if ( is_file($css_file_path) ) {
+
+        $css_file_url = plugin_dir_url( __FILE__ ) . "css/$layout.min.css";
+
+        if ( !wp_style_is( "brick-$layout", $list = 'enqueued' ) ) {
+            wp_register_style( "brick-$layout", $css_file_url );
+            wp_enqueue_style( "brick-$layout" );
+        }
+
+    }
+
+
+    // Js
+
+    $js_file_path = plugin_dir_path( __FILE__ ) . "js/$layout.js.css";
+
+    if ( is_file(  $js_file_path ) ) {
+
+        $js_file_url = plugin_dir_url(__FILE__) . "js/$layout.js.css";
+
+        if ( !wp_script_is( "brick-$layout", $list = 'enqueued' ) ) {
+            wp_register_script( "brick-$layout", $js_file_url );
+            wp_enqueue_script( "brick-$layout" );
+        }
+
+    }
+
+    // Return template part
 
     return $part;
 
