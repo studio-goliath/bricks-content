@@ -7,6 +7,5 @@
 !/web/wp-content/plugins/
 /web/wp-content/plugins/*
 !/web/wp-content/plugins/bricks*
-!/gulp/
-/gulp/node_modules
+/web/wp-content/plugins/bricks*/gulp/node_modules
 .DS_Store
