@@ -61,3 +61,32 @@ if( function_exists('acf_add_local_field_group') ):
     ));
 
 endif;
+
+/**
+ * Display each brick
+ *
+ * @param $content
+ * @return string
+ */
+function bricks_display_parts( $content ) {
+
+    $parts = '';
+
+    if ( function_exists('have_rows') ) {
+        if ( have_rows('brick') ) {
+            while ( have_rows('brick') ) {
+
+                the_row();
+
+                $layout = get_row_layout();
+
+                $parts .= apply_filters( "brick_template_$layout", '', $layout );
+
+            }
+        }
+    }
+
+    return $content.$parts;
+
+}
+add_filter( 'the_content', 'bricks_display_parts' );

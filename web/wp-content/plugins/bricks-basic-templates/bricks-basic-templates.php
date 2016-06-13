@@ -20,14 +20,14 @@ function bricks_basic_add_templates( $layouts )
         array(
             array(
                 'key' => '575ad2ec55824',
-                'name' => 'full_width_text',
+                'name' => 'full-width-text',
                 'label' => 'Full width text',
                 'display' => 'row',
                 'sub_fields' => array(
                     array(
                         'key' => 'field_575ad30f0ae07',
-                        'label' => 'Text',
-                        'name' => 'text',
+                        'label' => 'Content',
+                        'name' => 'content',
                         'type' => 'wysiwyg',
                         'instructions' => '',
                         'required' => 0,
@@ -48,7 +48,7 @@ function bricks_basic_add_templates( $layouts )
             ),
             array(
                 'key' => '575e5e924cafa',
-                'name' => 'two_columns',
+                'name' => 'two-columns',
                 'label' => 'Two columns',
                 'display' => 'row',
                 'sub_fields' => array(
@@ -97,3 +97,29 @@ function bricks_basic_add_templates( $layouts )
 
 }
 add_filter( 'layouts_filter', 'bricks_basic_add_templates' );
+
+/**
+ * Display each brick related to brick-basic-templates plugin
+ *
+ * @param $part
+ * @param $layout
+ * @return string
+ */
+function display_basic_template( $part, $layout ) {
+
+    $template = plugin_dir_path( __FILE__ ) . "/parts/row-$layout.php";
+
+    if ( is_file($template) ) {
+
+        ob_start();
+        load_template( $template, false );
+        $part = ob_get_contents();
+        ob_end_clean();
+
+    }
+
+    return $part;
+
+}
+add_filter( 'brick_template_two-columns', 'display_basic_template' , 10, 2 );
+add_filter( 'brick_template_full-width-text', 'display_basic_template' , 10, 2 );

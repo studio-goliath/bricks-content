@@ -20,7 +20,7 @@ function bricks_image_add_templates( $layouts )
         array(
             array(
                 'key' => '575e642a75784',
-                'name' => 'full_width_image',
+                'name' => 'full-width-image',
                 'label' => 'Full width image',
                 'display' => 'row',
                 'sub_fields' => array(
@@ -57,3 +57,28 @@ function bricks_image_add_templates( $layouts )
 
 }
 add_filter( 'layouts_filter', 'bricks_image_add_templates' );
+
+/**
+ * Display each brick related to brick-image-templates plugin
+ *
+ * @param $part
+ * @param $layout
+ * @return string
+ */
+function display_image_template( $part, $layout ) {
+
+    $template = plugin_dir_path( __FILE__ ) . "/parts/row-$layout.php";
+
+    if ( is_file($template) ) {
+
+        ob_start();
+        load_template( $template, false );
+        $part = ob_get_contents();
+        ob_end_clean();
+
+    }
+
+    return $part;
+
+}
+add_filter( 'brick_template_full-width-image', 'display_image_template' , 10, 2 );
