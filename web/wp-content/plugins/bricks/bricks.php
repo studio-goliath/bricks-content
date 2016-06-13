@@ -9,6 +9,8 @@
 
 if( function_exists('acf_add_local_field_group') ):
 
+    $layouts = array();
+
     acf_add_local_field_group(array (
         'key' => 'group_575ad2a97bae8',
         'title' => 'Bricks',
@@ -29,7 +31,7 @@ if( function_exists('acf_add_local_field_group') ):
                 'button_label' => 'Add Row',
                 'min' => '',
                 'max' => '',
-                'layouts' => apply_filters( 'layouts_filter', array())
+                'layouts' => apply_filters( 'layouts_filter', $layouts )
             ),
         ),
         'location' => array (
