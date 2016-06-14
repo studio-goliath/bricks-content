@@ -90,3 +90,27 @@ function bricks_display_parts( $content ) {
 
 }
 add_filter( 'the_content', 'bricks_display_parts' );
+
+
+/**
+ * Get template part.
+ *
+ * @param string $plugin
+ * @param string $slug
+ * @return string
+ */
+function bricks_get_template_part( $plugin, $slug ) {
+
+    $template = '';
+
+    // Look in yourtheme/bricks/plugin/slug.php then plugin/parts/row-slug.php
+    $template = locate_template( "/bricks/{$plugin}/row-{$slug}.php", false );
+
+    // If template is not overridden check in plugin/parts/row-slug.php
+    if ( !$template && is_file( WP_PLUGIN_DIR . "/{$plugin}/parts/row-{$slug}.php" ) ) {
+        $template = WP_PLUGIN_DIR . "/{$plugin}/parts/row-{$slug}.php";
+    }
+
+    return $template;
+
+}

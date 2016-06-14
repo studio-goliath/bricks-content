@@ -105,11 +105,10 @@ add_filter( 'layouts_filter', 'bricks_basic_add_templates' );
  * @param $layout
  * @return string
  */
-function display_basic_template( $part, $layout ) {
-
-    $template = plugin_dir_path( __FILE__ ) . "/parts/row-$layout.php";
+function bricks_display_basic_template( $part, $layout ) {
 
     // Get template part
+    $template = bricks_get_template_part( 'bricks-basic-templates' , $layout );
 
     if ( is_file($template) ) {
 
@@ -156,5 +155,5 @@ function display_basic_template( $part, $layout ) {
     return $part;
 
 }
-add_filter( 'brick_template_two-columns', 'display_basic_template' , 10, 2 );
-add_filter( 'brick_template_full-width-text', 'display_basic_template' , 10, 2 );
+add_filter( 'brick_template_two-columns', 'bricks_display_basic_template' , 10, 2 );
+add_filter( 'brick_template_full-width-text', 'bricks_display_basic_template' , 10, 2 );

@@ -65,9 +65,10 @@ add_filter( 'layouts_filter', 'bricks_image_add_templates' );
  * @param $layout
  * @return string
  */
-function display_image_template( $part, $layout ) {
+function bricks_display_image_template( $part, $layout ) {
 
-    $template = plugin_dir_path( __FILE__ ) . "/parts/row-$layout.php";
+    // Get template part
+    $template = bricks_get_template_part( 'bricks-image-templates' , $layout );
 
     if ( is_file($template) ) {
 
@@ -78,7 +79,40 @@ function display_image_template( $part, $layout ) {
 
     }
 
+    // Css
+
+    $css_file_path = plugin_dir_path( __FILE__ ) . "css/$layout.min.css";
+
+    if ( is_file($css_file_path) ) {
+
+        $css_file_url = plugin_dir_url( __FILE__ ) . "css/$layout.min.css";
+
+        if ( !wp_style_is( "brick-$layout", $list = 'enqueued' ) ) {
+            wp_register_style( "brick-$layout", $css_file_url );
+            wp_enqueue_style( "brick-$layout" );
+        }
+
+    }
+
+
+    // Js
+
+    $js_file_path = plugin_dir_path( __FILE__ ) . "js/$layout.js.css";
+
+    if ( is_file(  $js_file_path ) ) {
+
+        $js_file_url = plugin_dir_url(__FILE__) . "js/$layout.js.css";
+
+        if ( !wp_script_is( "brick-$layout", $list = 'enqueued' ) ) {
+            wp_register_script( "brick-$layout", $js_file_url );
+            wp_enqueue_script( "brick-$layout" );
+        }
+
+    }
+
+    // Return template part
+
     return $part;
 
 }
-add_filter( 'brick_template_full-width-image', 'display_image_template' , 10, 2 );
+add_filter( 'brick_template_full-width-image', 'bricks_display_image_template' , 10, 2 );
