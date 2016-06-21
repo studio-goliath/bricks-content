@@ -1,0 +1,13 @@
+@media (min-width: 48em) {
+    .brick-row {
+        overflow: hidden;
+    }
+    .brick-three-col {
+        box-sizing: border-box;
+        float: left;
+        width: 33.33333%;
+    }
+    .brick-three-col:nth-child(2) {
+        padding: 0 4%;
+    }
+}
