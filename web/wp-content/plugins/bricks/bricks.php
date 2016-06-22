@@ -80,7 +80,40 @@ function bricks_display_parts( $content ) {
 
                 $layout = get_row_layout();
 
+                // Get template part
+
                 $parts .= apply_filters( "brick_template_$layout", '', $layout );
+
+                // Scripts
+
+                $scripts = array(
+                    'css' => apply_filters( 'bricks_styles_filter', array() ),
+                    'js' => apply_filters( 'bricks_scripts_filter', array() )
+                );
+
+                // Enqueue related brick css
+
+                foreach ($scripts['css'] as $key => $styles) {
+                    if ($key === $layout) {
+                        foreach ($styles as $key => $path) {
+                            if (!wp_style_is($key, $list = 'enqueued')) {
+                                wp_enqueue_style($key);
+                            }
+                        }
+                    }
+                }
+
+                // Enqueue related brick js
+
+                foreach($scripts['js'] as $key => $scripts) {
+                    if ($key === $layout) {
+                        foreach ($scripts as $key => $path) {
+                            if (!wp_script_is($key, $list = 'enqueued')) {
+                                wp_enqueue_script($key);
+                            }
+                        }
+                    }
+                }
 
             }
         }
@@ -90,7 +123,6 @@ function bricks_display_parts( $content ) {
 
 }
 add_filter( 'the_content', 'bricks_display_parts' );
-
 
 /**
  * Get template part.
@@ -114,3 +146,32 @@ function bricks_get_template_part( $plugin, $slug ) {
     return $template;
 
 }
+
+/**
+ * Register all the template scripts
+ */
+function bricks_register_scripts() {
+
+    $scripts = array(
+        'css' => apply_filters( 'bricks_styles_filter', array() ),
+        'js' => apply_filters( 'bricks_scripts_filter', array() )
+    );
+
+    // Css
+
+    foreach($scripts['css'] as $key => $styles) {
+        foreach ($styles as $key => $path) {
+            wp_register_style($key, $path);
+        }
+    }
+
+    // Js
+
+    foreach($scripts['js'] as $key => $scripts) {
+        foreach ($scripts as $key => $path) {
+            wp_register_script($key, $path);
+        }
+    }
+
+}
+add_action('wp_enqueue_scripts', 'bricks_register_scripts');

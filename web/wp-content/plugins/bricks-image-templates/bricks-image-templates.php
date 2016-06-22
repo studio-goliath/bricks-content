@@ -52,11 +52,91 @@ function bricks_image_add_templates( $layouts )
                 'min' => '',
                 'max' => '',
             ),
+            array (
+                'key' => '5769401e0eee5',
+                'name' => 'slider',
+                'label' => 'Slider',
+                'display' => 'row',
+                'sub_fields' => array (
+                    array (
+                        'key' => 'field_576940240eee6',
+                        'label' => 'images',
+                        'name' => 'images',
+                        'type' => 'gallery',
+                        'instructions' => '',
+                        'required' => '',
+                        'conditional_logic' => '',
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'min' => '',
+                        'max' => '',
+                        'preview_size' => 'thumbnail',
+                        'insert' => 'append',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => '',
+                    ),
+                ),
+                'min' => '',
+                'max' => '',
+            ),
         )
     );
 
 }
 add_filter( 'layouts_filter', 'bricks_image_add_templates' );
+
+/**
+ * Bricks image templates styles
+ *
+ * @param $scripts
+ * @return array
+ */
+function bricks_image_add_styles( $scripts )
+{
+    $plugin_dir_url = plugins_url('bricks-image-templates');
+
+    return array_merge($scripts,
+        array(
+            'full-width-image' => array(
+                'brick-full-width-image' => $plugin_dir_url . '/css/full-width-image.min.css'
+            ),
+            'slider' => array(
+                'brick-slider' => $plugin_dir_url . '/css/slider.min.css'
+            )
+        )
+    );
+}
+add_filter( 'bricks_styles_filter', 'bricks_image_add_styles' );
+
+/**
+ * Bricks image templates scripts
+ *
+ * @param $scripts
+ * @return array
+ */
+function bricks_image_add_scripts( $scripts )
+{
+    $plugin_dir_url = plugins_url('bricks-image-templates');
+
+    return array_merge($scripts,
+        array(
+            'slider' => array(
+                'brick-slick' =>  $plugin_dir_url . '/js/slick.min.js',
+                'brick-slider' =>  $plugin_dir_url . '/js/slider.min.js',
+            )
+        )
+    );
+}
+add_filter( 'bricks_scripts_filter', 'bricks_image_add_scripts' );
 
 /**
  * Display each brick related to brick-image-templates plugin
@@ -65,7 +145,8 @@ add_filter( 'layouts_filter', 'bricks_image_add_templates' );
  * @param $layout
  * @return string
  */
-function bricks_display_image_template( $part, $layout ) {
+function bricks_display_image_template( $part, $layout )
+{
 
     // Get template part
     $template = bricks_get_template_part( 'bricks-image-templates' , $layout );
@@ -79,40 +160,10 @@ function bricks_display_image_template( $part, $layout ) {
 
     }
 
-    // Css
-
-    $css_file_path = plugin_dir_path( __FILE__ ) . "css/$layout.min.css";
-
-    if ( is_file($css_file_path) ) {
-
-        $css_file_url = plugin_dir_url( __FILE__ ) . "css/$layout.min.css";
-
-        if ( !wp_style_is( "brick-$layout", $list = 'enqueued' ) ) {
-            wp_register_style( "brick-$layout", $css_file_url );
-            wp_enqueue_style( "brick-$layout" );
-        }
-
-    }
-
-
-    // Js
-
-    $js_file_path = plugin_dir_path( __FILE__ ) . "js/$layout.js.css";
-
-    if ( is_file(  $js_file_path ) ) {
-
-        $js_file_url = plugin_dir_url(__FILE__) . "js/$layout.js.css";
-
-        if ( !wp_script_is( "brick-$layout", $list = 'enqueued' ) ) {
-            wp_register_script( "brick-$layout", $js_file_url );
-            wp_enqueue_script( "brick-$layout" );
-        }
-
-    }
-
     // Return template part
 
     return $part;
 
 }
 add_filter( 'brick_template_full-width-image', 'bricks_display_image_template' , 10, 2 );
+add_filter( 'brick_template_slider', 'bricks_display_image_template' , 10, 2 );

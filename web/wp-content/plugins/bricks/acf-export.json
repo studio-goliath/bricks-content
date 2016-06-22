@@ -383,6 +383,42 @@
                         ],
                         "min": "",
                         "max": ""
+                    },
+                    {
+                        "key": "5769401e0eee5",
+                        "name": "slider",
+                        "label": "Slider",
+                        "display": "row",
+                        "sub_fields": [
+                            {
+                                "key": "field_576940240eee6",
+                                "label": "images",
+                                "name": "images",
+                                "type": "gallery",
+                                "instructions": "",
+                                "required": "",
+                                "conditional_logic": "",
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "min": "",
+                                "max": "",
+                                "preview_size": "thumbnail",
+                                "insert": "append",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 ]
             }

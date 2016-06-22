@@ -23,7 +23,7 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
     gulp.src(['js/*.js'])
         .pipe(plumber())
-        .pipe(concat('scripts.min.js'))
+        .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(gulp.dest('../js'));
 });

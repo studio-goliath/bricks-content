@@ -355,6 +355,32 @@ function bricks_basic_add_templates( $layouts )
 add_filter( 'layouts_filter', 'bricks_basic_add_templates' );
 
 /**
+ * Bricks image templates styles
+ *
+ * @param $scripts
+ * @return array
+ */
+function bricks_basic_add_styles( $scripts )
+{
+    $plugin_dir_url = plugins_url('bricks-basic-templates');
+
+    return array_merge($scripts,
+        array(
+            'full-width-text' => array(
+                'brick-full-width-text' => $plugin_dir_url . '/css/full-width-text.min.css'
+            ),
+            'three-columns-featured-image' => array(
+                'brick-three-columns-featured-image' => $plugin_dir_url . '/css/three-columns-featured-image.min.css'
+            ),
+            'two-columns' => array(
+                'brick-two-columns' => $plugin_dir_url . '/css/two-columns.min.css'
+            )
+        )
+    );
+}
+add_filter( 'bricks_styles_filter', 'bricks_basic_add_styles' );
+
+/**
  * Display each brick related to brick-basic-templates plugin
  *
  * @param $part
@@ -375,39 +401,7 @@ function bricks_display_basic_template( $part, $layout ) {
 
     }
 
-    // Css
-
-    $css_file_path = plugin_dir_path( __FILE__ ) . "css/$layout.min.css";
-
-    if ( is_file($css_file_path) ) {
-
-        $css_file_url = plugin_dir_url( __FILE__ ) . "css/$layout.min.css";
-
-        if ( !wp_style_is( "brick-$layout", $list = 'enqueued' ) ) {
-            wp_register_style( "brick-$layout", $css_file_url );
-            wp_enqueue_style( "brick-$layout" );
-        }
-
-    }
-
-
-    // Js
-
-    $js_file_path = plugin_dir_path( __FILE__ ) . "js/$layout.js.css";
-
-    if ( is_file(  $js_file_path ) ) {
-
-        $js_file_url = plugin_dir_url(__FILE__) . "js/$layout.js.css";
-
-        if ( !wp_script_is( "brick-$layout", $list = 'enqueued' ) ) {
-            wp_register_script( "brick-$layout", $js_file_url );
-            wp_enqueue_script( "brick-$layout" );
-        }
-
-    }
-
     // Return template part
-
     return $part;
 
 }
