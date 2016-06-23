@@ -419,6 +419,40 @@
                         ],
                         "min": "",
                         "max": ""
+                    },
+                    {
+                        "key": "576a9416b754c",
+                        "name": "parallax",
+                        "label": "Parallax",
+                        "display": "row",
+                        "sub_fields": [
+                            {
+                                "key": "field_576a9423b754d",
+                                "label": "Image",
+                                "name": "image",
+                                "type": "image",
+                                "instructions": "",
+                                "required": "",
+                                "conditional_logic": "",
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array",
+                                "preview_size": "thumbnail",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 ]
             }

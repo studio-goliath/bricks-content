@@ -88,6 +88,40 @@ function bricks_image_add_templates( $layouts )
                 'min' => '',
                 'max' => '',
             ),
+            array (
+                'key' => '576a9416b754c',
+                'name' => 'parallax',
+                'label' => 'Parallax',
+                'display' => 'row',
+                'sub_fields' => array (
+                    array (
+                        'key' => 'field_576a9423b754d',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'instructions' => '',
+                        'required' => '',
+                        'conditional_logic' => '',
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'thumbnail',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => '',
+                    ),
+                ),
+                'min' => '',
+                'max' => '',
+            ),
         )
     );
 
@@ -111,6 +145,9 @@ function bricks_image_add_styles( $scripts )
             ),
             'slider' => array(
                 'brick-slider' => $plugin_dir_url . '/css/slider.min.css'
+            ),
+            'parallax' => array(
+                'brick-parallax' => $plugin_dir_url . '/css/parallax.min.css'
             )
         )
     );
@@ -132,7 +169,14 @@ function bricks_image_add_scripts( $scripts )
             'slider' => array(
                 'brick-slick' =>  $plugin_dir_url . '/js/slick.min.js',
                 'brick-slider' =>  $plugin_dir_url . '/js/slider.min.js',
+            ),
+            'parallax' => array(
+                'bricks-twinmax' =>  $plugin_dir_url . '/js/TweenMax.min.js',
+                'bricks-scroll-magic' =>  $plugin_dir_url . '/js/ScrollMagic.min.js',
+                'brick-animation-gsap' =>  $plugin_dir_url . '/js/animation.gsap.min.js',
+                'brick-parallax' =>  $plugin_dir_url . '/js/parallax.min.js'
             )
+
         )
     );
 }
@@ -167,3 +211,4 @@ function bricks_display_image_template( $part, $layout )
 }
 add_filter( 'brick_template_full-width-image', 'bricks_display_image_template' , 10, 2 );
 add_filter( 'brick_template_slider', 'bricks_display_image_template' , 10, 2 );
+add_filter( 'brick_template_parallax', 'bricks_display_image_template' , 10, 2 );
