@@ -1,9 +1,34 @@
-.brick-parallax.js {
-    overflow: hidden;
+.brick-parallax-container.js {
     position: relative;
+    .brick-parallax {
+        position: relative;
+        overflow: hidden;
+    }
     .brick-parallax-image {
         position: absolute;
         top: -25%;
         width: 100%;
+    }
+    @media (min-width: 48em) {
+        &.has-content:before {
+            background-color: rgba(0, 0, 0, .2);
+            content: "";
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+        .brick-parallax-content-container {
+            padding: 0 5%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        .brick-parallax-title, .brick-parallax-content, .brick-parallax-link {
+            color: #fff;
+        }
     }
 }

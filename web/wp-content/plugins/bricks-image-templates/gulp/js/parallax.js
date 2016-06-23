@@ -12,6 +12,8 @@ jQuery(document).ready(function($) {
 
     if($parallax.length > 0) {
 
+        $parallax.parent().addClass('js');
+
         // Init ScrollMagic
         var controller = new ScrollMagic.Controller();
 
@@ -24,7 +26,6 @@ jQuery(document).ready(function($) {
             var parallaxHeight = $('.brick-parallax-image', $this).height();
             parallaxHeight = parallaxHeight - parallaxHeight*0.25;
             $this.css('height', parallaxHeight+'px');
-            $this.addClass('js');
             slides.push('#' + id);
         });
 
